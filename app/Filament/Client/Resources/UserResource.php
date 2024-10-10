@@ -4,6 +4,7 @@ namespace App\Filament\Client\Resources;
 
 use App\Filament\Client\Resources\UserResource\Pages;
 use App\Filament\Client\Resources\UserResource\RelationManagers;
+use Filament\Forms\Components\DateTimePicker;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -25,13 +26,22 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->label('Nome Completo:')
+                    ->maxLength(64),
+                Forms\Components\TextInput::make('cpf')
+                    ->required()
+                    ->label('CPF:')
+                    ->mask('999.999.999-99'),
                 Forms\Components\TextInput::make('email')
                     ->email()
+                    ->label('E-mail:')
                     ->required()
-
                     ->maxLength(255),
-                // Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DatePicker::make('date_birthday')
+                    ->label('Data de Nascimento:')
+                    ->displayFormat('d/m/Y')
+                    ->native(false)
+                    ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
@@ -47,6 +57,13 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('cpf')
+                    ->label('CPF')
+                    ->searchable()
+                    ->formatStateUsing(
+                        fn(string $state): string =>
+                        substr($state, 0, 3) . '.' . substr($state, 3, 3) . '.' . substr($state, 6, 3) . '-' . substr($state, 9)
+                    ),
                 Tables\Columns\TextColumn::make('email')
                     ->label('E-mail')
                     ->searchable()
@@ -60,14 +77,14 @@ class UserResource extends Resource
                     ->label(
                         'Criado em'
                     )
-                    ->dateTime('d/m/y')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Atualizado em')
                     ->dateTime('d/m/y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

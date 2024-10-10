@@ -47,30 +47,16 @@
         <div class="bg-white shadow-md rounded-lg p-6 border border-gray-300">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Aniversariantes do Mês</h2>
             <div class="space-y-3">
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2  hover:bg-neutral-100">
-                    <span class="truncate">Ruanderson Rodrigues</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">03/10</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
-                    <span class="truncate">Luiz Rodrigo</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">04/10</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
-                    <span class="truncate">Patrícia Teixeira</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">05/10</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
-                    <span class="truncate">Fabricia Araujo</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">06/10</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
-                    <span class="truncate">Carlos Souza</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">07/10</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
-                    <span class="truncate">Ariadene Alves</span>
-                    <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">07/10</span>
-                </div>
+                @foreach ($users as $user)
+                    <div class="flex justify-between items-center border-b border-gray-300 pb-2 mb-2 hover:bg-neutral-100">
+                        <span class="truncate">{{ $user->name }}</span>
+                        <span class="bg-indigo-600/95 text-white text-sm px-3 py-1 rounded-full">
+                            {{ \Carbon\Carbon::parse($user->date_birthday)->format('d/m') }}
+                        </span>
+                    </div>
+                @endforeach
+
+
             </div>
         </div>
 
