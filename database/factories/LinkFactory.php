@@ -33,6 +33,6 @@ class LinkFactory extends Factory
             'name' => $link['name'],
             'url' => $link['url'],
         ];
-        
+
     }
 }
