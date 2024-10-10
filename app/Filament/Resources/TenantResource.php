@@ -36,8 +36,12 @@ class TenantResource extends Resource
                         ->label('Senha')
                         ->password()
                         ->required()
+                        ->revealable()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('domain'),
+                    Forms\Components\TextInput::make('domain')
+                        ->prefix('http://')
+                        ->suffix('/client/login')
+                        ->helperText('Ex: http://cedeba.localhost:8000/client/login'),
                 ])
             ]);
     }
