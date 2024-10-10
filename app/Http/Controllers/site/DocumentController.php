@@ -10,6 +10,6 @@ class DocumentController extends Controller
 
     public function __invoke()
     {
-        return view(view:'site.document');
+        return view(view: 'site.client.document');
     }
 }

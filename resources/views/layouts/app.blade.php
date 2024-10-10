@@ -16,7 +16,7 @@
 
     <nav class="bg-white border-gray-200 py-3 mb-0">
         <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-3 mx-auto">
-            <a href="{{ route('site.home') }}" class="flex items-center">
+            <a href="{{ route('client.home') }}" class="flex items-center">
                 <span class="self-center text-xl font-semibold ">SAFTEC</span>
             </a>
             <div class="flex items-center lg:order-2">
@@ -46,16 +46,16 @@
             <div class="items-center justify-between w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
-                        <a href="{{ route('site.home') }}"
+                        <a href="{{ route('client.home') }}"
                             class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0">Página
                             Inicial</a>
                     </li>
                     <li>
-                        <a href="{{ route('site.document') }}"
+                        <a href="{{ route('client.document') }}"
                             class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ">Documentos</a>
                     </li>
                     <li>
-                        <a href="{{ route('site.phone') }}"
+                        <a href="{{ route('client.phone') }}"
                             class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ">Ramais</a>
                     </li>
 
@@ -75,19 +75,19 @@
                 <ul
                     class="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-4 mb-8 border-b border-gray-200">
                     <li>
-                        <a href="{{ route('site.home') }}"
+                        <a href="{{ route('client.home') }}"
                             class="text-lg font-normal text-gray-800 transition-all duration-300 hover:text-indigo-600 focus-within:text-indigo-600 focus-within:outline-0">
                             Página Inicial
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('site.document') }}"
+                        <a href="{{ route('client.document') }}"
                             class="text-lg font-normal text-gray-800 transition-all duration-300 hover:text-indigo-600 focus-within:text-indigo-600 focus-within:outline-0">
                             Documentos
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('site.phone') }}"
+                        <a href="{{ route('client.phone') }}"
                             class="text-lg font-normal text-gray-800 transition-all duration-300 hover:text-indigo-600 focus-within:text-indigo-600 focus-within:outline-0">
                             Ramais
                         </a>

@@ -78,23 +78,10 @@
         <div class="bg-white shadow-md rounded-lg p-6 border border-gray-300">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Links</h2>
             <div class="space-y-3">
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">Fluxos
-                    de atendimento por patologia - SESAB</a>
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">PCDT
-                    - MS</a>
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">AGHU
-                    - SESAB</a>
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">AFSESAB</a>
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">BI
-                    - AGHUUse</a>
-                <a href="#"
-                    class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">Suporte
-                    Informática</a>
+                @foreach ($links as $link)
+                    <a href="{{ $link->url }}" target="_blank"
+                        class="block bg-indigo-100 text-indigo-900 text-center py-2 rounded-md transition duration-200 hover:bg-indigo-200">{{ $link->name }}</a>
+                @endforeach
             </div>
         </div>
 

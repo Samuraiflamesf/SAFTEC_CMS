@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Link;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -10,6 +11,12 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        return view(view: 'site.home');
+        // Buscando todos os registros de 'phones'
+        $links = link::all();
+
+        return view(
+            'site.client.home',
+            ['links' => $links]
+        );
     }
 }

@@ -15,7 +15,7 @@ class PhoneController extends Controller
         // Buscando todos os registros de 'phones'
         $phones = Phone::all();
         return view(
-            'site.phone',
+            'site.client.phone',
             ['phones' => $phones]
         );
     }

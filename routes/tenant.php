@@ -14,9 +14,8 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::namespace('Site')->group(function () {
-        Route::get('ramais', [PhoneController::class, '__invoke'])->name(name: 'site.phone');
-        Route::get('/', [HomeController::class, '__invoke'])->name(name: 'site.home');
-        Route::get('documentos', [DocumentController::class, '__invoke'])->name(name: 'site.document');
-    });
+    Route::namespace('Site.client')->group(function () {
+        Route::get('documentos', [DocumentController::class, '__invoke'])->name(name: 'client.document');});
+        Route::get('ramais', [PhoneController::class, '__invoke'])->name(name: 'client.phone');
+        Route::get('/', [HomeController::class, '__invoke'])->name(name: 'client.home');
 });
