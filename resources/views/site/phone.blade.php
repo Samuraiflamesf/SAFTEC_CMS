@@ -3,6 +3,18 @@
 @section('title', 'Ramais')
 
 @section('content')
+    @php
+        function formatPhoneNumber($phone)
+        {
+            if (strlen($phone) === 11) {
+            // Formato para números com 11 dígitos (celular): (XX) XXXXX-XXXX
+            return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $phone);
+        } elseif (strlen($phone) === 10) {
+            // Formato para números com 10 dígitos (fixo): (XX) XXXX-XXXX
+            return preg_replace('/(\d{2})(\d{4})(\d{4})/', '($1) $2-$3', $phone);
+        }
+        }
+    @endphp
     <div class="m-8">
         <div class="flex justify-center items-center">
             <div class="text-center max-w-6xl mx-10">
@@ -21,23 +33,12 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    <tr class="hover:bg-gray-300">
-                        <td class="py-4 px-6 border-b border-gray-200">John Doe</td>
-                        <td class="py-4 px-6 border-b border-gray-200">555-555-5555</td>
-                    </tr>
-                    <tr class="hover:bg-gray-300">
-                        <td class="py-4 px-6 border-b border-gray-200">John Doe</td>
-                        <td class="py-4 px-6 border-b border-gray-200">555-555-5555</td>
-                    </tr>
-                    <tr class="hover:bg-gray-300">
-                        <td class="py-4 px-6 border-b border-gray-200">John Doe</td>
-                        <td class="py-4 px-6 border-b border-gray-200">555-555-5555</td>
-                    </tr>
-                    <tr class="hover:bg-gray-300">
-                        <td class="py-4 px-6 border-b border-gray-200">John Doe</td>
-                        <td class="py-4 px-6 border-b border-gray-200">555-555-5555</td>
-                    </tr>
-                    <!-- Add more rows here -->
+                    @foreach ($phones as $phone)
+                        <tr class="hover:bg-gray-300">
+                            <td class="py-4 px-6 border-b border-gray-200">{{ $phone->name }}</td>
+                            <td class="py-4 px-6 border-b border-gray-200">{{ formatPhoneNumber($phone->phone) }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

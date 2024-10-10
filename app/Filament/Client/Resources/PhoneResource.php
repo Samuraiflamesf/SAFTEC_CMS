@@ -17,7 +17,7 @@ class PhoneResource extends Resource
 {
     protected static ?string $model = Phone::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-phone';
 
     public static function form(Form $form): Form
     {
@@ -29,7 +29,7 @@ class PhoneResource extends Resource
                     ->minLength(2)
                     ->maxLength(20),
                 Forms\Components\TextInput::make('phone')
-                ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->placeholder('(33) 3545-0296')
                     ->suffixIcon('heroicon-m-phone')
                     ->label('Telefone')
