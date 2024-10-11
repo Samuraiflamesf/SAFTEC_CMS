@@ -48,8 +48,9 @@ class UserFactory extends Factory
      */
     public function admin(): static
     {
-        return $this->state([
+        return $this->state(fn(array $attributes) => [
             'name' => 'admin',
+            'cpf' => '06605000000',
             'email' => 'Admin@admin.com',
             'password' => Hash::make('123admin'),
         ]);
