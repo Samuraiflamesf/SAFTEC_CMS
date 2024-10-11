@@ -17,7 +17,7 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -33,11 +33,15 @@ class TenantResource extends Resource
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('password')
-                    ->label('Senha')
+                        ->label('Senha')
                         ->password()
                         ->required()
+                        ->revealable()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('domain'),
+                    Forms\Components\TextInput::make('domain')
+                        ->prefix('http://')
+                        ->suffix('/client/login')
+                        ->helperText('Ex: http://cedeba.localhost:8000/client/login'),
                 ])
             ]);
     }
@@ -46,21 +50,29 @@ class TenantResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(
+                        'Nome do Domain'
+                    )
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('E-mail')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label(
+                        'Criado em:'
+                    )
+                    ->dateTime('d/m/y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Atualizado em:')
+                    ->dateTime('d/m/y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->limit(10),
             ])
             ->filters([
                 //
