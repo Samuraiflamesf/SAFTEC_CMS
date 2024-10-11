@@ -4,22 +4,20 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Paineis;
+use App\Models\Painel;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\PaineisResource\Pages;
+use App\Filament\Resources\PainelResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PaineisResource\RelationManagers;
+use App\Filament\Resources\PainelResource\RelationManagers;
 
-class PaineisResource extends Resource
+class PainelResource extends Resource
 {
-    protected static ?string $model = Paineis::class;
+    protected static ?string $model = Painel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -90,7 +88,7 @@ class PaineisResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManagePaineis::route('/'),
+            'index' => Pages\ManagePainels::route('/'),
         ];
     }
 }

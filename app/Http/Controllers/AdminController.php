@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Link;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +13,11 @@ class AdminController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view("site.admin.home");
-    }
+        // Buscando todos os registros de 'link'
+        $links = Link::all();
+        $tenants = Tenant::all();
+        $count = $tenants->count(); // Contando quantos tenants existem
 
+        return view("site.admin.home", ['links' => $links, 'count' => $count]);
+    }
 }

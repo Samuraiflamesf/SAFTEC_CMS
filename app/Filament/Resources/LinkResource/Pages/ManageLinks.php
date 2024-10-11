@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\PaineisResource\Pages;
+namespace App\Filament\Resources\LinkResource\Pages;
 
-use App\Filament\Resources\PaineisResource;
+use App\Filament\Resources\LinkResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManagePaineis extends ManageRecords
+class ManageLinks extends ManageRecords
 {
-    protected static string $resource = PaineisResource::class;
+    protected static string $resource = LinkResource::class;
 
     protected function getHeaderActions(): array
     {

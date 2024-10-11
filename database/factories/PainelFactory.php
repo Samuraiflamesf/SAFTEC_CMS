@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\paineis>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Painel>
  */
-class PaineisFactory extends Factory
+class PainelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,7 @@ class PaineisFactory extends Factory
         return [
             'name' => fake()->sentence(5),
             'url' => fake()->sentence(5),
-            'img'=> '',
+            'img' => '',
         ];
     }
 }
