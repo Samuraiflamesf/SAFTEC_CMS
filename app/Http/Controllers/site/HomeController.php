@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        // Buscando todos os registros de 'phones'
+        // Buscando todos os registros de 'link'
         $links = link::all();
 
         $users = User::whereMonth('date_birthday', Carbon::now()->month)
