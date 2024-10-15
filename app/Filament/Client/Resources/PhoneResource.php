@@ -17,7 +17,7 @@ class PhoneResource extends Resource
 {
     protected static ?string $model = Phone::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-phone';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -56,13 +56,16 @@ class PhoneResource extends Resource
                             ? '(' . substr($state, 0, 2) . ') ' . substr($state, 2, 5) . '-' . substr($state, 7) // Formato para 11 dígitos
                             : '(' . substr($state, 0, 2) . ') ' . substr($state, 2, 4) . '-' . substr($state, 6) // Formato para 10 dígitos
                     ),
+                Tables\Columns\TextColumn::make('user_create_id')
+                    ->label('Criado por:')
+                    ->formatStateUsing(fn($state) => \App\Models\User::find($state)?->name),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -71,10 +74,19 @@ class PhoneResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManagePhones::route('/'),
+            'index' => Pages\ListPhones::route('/'),
+            'create' => Pages\CreatePhone::route('/create'),
+            'edit' => Pages\EditPhone::route('/{record}/edit'),
         ];
     }
 }

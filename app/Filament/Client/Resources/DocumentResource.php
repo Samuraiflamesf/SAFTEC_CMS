@@ -2,20 +2,16 @@
 
 namespace App\Filament\Client\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Document;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Client\Resources\DocumentResource\Pages;
 use App\Filament\Client\Resources\DocumentResource\RelationManagers;
-use App\Models\NameFolder;
-use Filament\Forms\Components\Select;
+use App\Models\Document;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DocumentResource extends Resource
 {
@@ -27,25 +23,7 @@ class DocumentResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->label('Nome do Arquivo:'),
-                FileUpload::make('document')
-                    ->required()
-                    ->label('Documento')
-                    ->directory('Doc')
-                    ->disk('public'),
-                Select::make('folder_id')
-                    ->label('Author')
-                    ->options(NameFolder::all()->pluck('name', 'id'))
-                // ->relationship('name_folders', 'name')
-                // ->createOptionForm([
-                //     Forms\Components\TextInput::make('name')
-                //         ->label('Nome da Seção:')
-                //         ->required()
-                //         ->minLength(2)
-                //         ->maxLength(20),
-                // ]),
+                //
             ]);
     }
 
@@ -60,7 +38,6 @@ class DocumentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -69,10 +46,19 @@ class DocumentResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageDocuments::route('/'),
+            'index' => Pages\ListDocuments::route('/'),
+            'create' => Pages\CreateDocument::route('/create'),
+            'edit' => Pages\EditDocument::route('/{record}/edit'),
         ];
     }
 }
