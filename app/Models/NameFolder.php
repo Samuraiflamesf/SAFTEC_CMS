@@ -10,7 +10,12 @@ class NameFolder extends Model
     /** @use HasFactory<\Database\Factories\NameFolderFactory> */
     use HasFactory;
     protected $fillable = [
-        "name",
+        'id',
+        'name',
+        'user_create_id'
     ];
-
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_create_id');
+    }
 }

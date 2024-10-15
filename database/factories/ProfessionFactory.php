@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\NameFolder>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Profession>
  */
-class NameFolderFactory extends Factory
+class ProfessionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class NameFolderFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(15),
-            'user_create_id' => 1, // Pode ser definido depois
+            'name' => $this->faker->word,
+            'perfil' => $this->faker->sentence,
         ];
     }
 }

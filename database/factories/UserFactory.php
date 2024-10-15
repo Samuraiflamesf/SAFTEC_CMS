@@ -30,6 +30,8 @@ class UserFactory extends Factory
             'date_birthday' => fake()->dateTimeInInterval('-30 years', '-10 years'),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'id_empresa' => null, // Pode ser definido depois
+            'id_profession' => null, // Pode ser definido depois
         ];
     }
 

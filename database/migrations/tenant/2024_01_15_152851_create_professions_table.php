@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('profession', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone');
-            // Chave estrangeira para o usuário que criou o telefone
-            $table->foreignId('user_create_id')->constrained('users')->default(1);
+            $table->string('perfil')->nullable(); // Pode ser um campo descritivo
             $table->timestamps();
         });
-
     }
 
     /**
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phones');
+        Schema::dropIfExists('profession');
     }
 };

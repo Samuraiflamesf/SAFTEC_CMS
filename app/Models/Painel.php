@@ -10,6 +10,7 @@ class Painel extends Model
     /** @use HasFactory<\Database\Factories\PainelFactory> */
     use HasFactory;
     protected $fillable = [
+        'id',
         'name',
         'url',
         'img'

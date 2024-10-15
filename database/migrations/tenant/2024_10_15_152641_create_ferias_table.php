@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('feria', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            // Chave estrangeira para o usuário que criou o telefone
-            $table->foreignId('user_create_id')->constrained('users')->default(1);
+            // Chave estrangeira para o usuário que está de férias
+            $table->foreignId('user_id')->constrained('users');
+            $table->integer('days_ferias');
+            $table->timestamp('date_start');
+            $table->timestamp('date_end');
+            $table->string('detail')->nullable();
             $table->timestamps();
         });
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phones');
+        Schema::dropIfExists('ferias');
     }
 };

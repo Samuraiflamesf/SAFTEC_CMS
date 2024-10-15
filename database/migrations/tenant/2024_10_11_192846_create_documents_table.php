@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            // Para armazenar o documento (ou usar path)
             $table->string('document');
-            $table->foreignId('folder_id')->constrained('name_folders')->onDelete('cascade');
+            // Relacionado à pasta
+            $table->foreignId('folder_id')->constrained('name_folders');
+            // Chave estrangeira para o usuário que criou o documento
+            $table->foreignId('user_create_id')->constrained('users')->default(1);
             $table->timestamps();
         });
+
     }
 
     /**

@@ -10,7 +10,13 @@ class Phone extends Model
     /** @use HasFactory<\Database\Factories\PhoneFactory> */
     use HasFactory;
     protected $fillable = [
+        "id",
         'name',
-        'phone'
+        'phone',
+        'user_create_id'
     ];
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_create_id');
+    }
 }
