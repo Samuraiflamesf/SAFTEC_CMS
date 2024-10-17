@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Filament\Tables\Columns\TextColumn;
 
 class UserResource extends Resource
 {
@@ -54,17 +55,20 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),,
-                Tables\Columns\TextColumn::make('cpf')
+                TextColumn::make('email')
+                    ->searchable(),
+                TextColumn::make('cpf')
                     ->label('CPF')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('date_birthday')
+                TextColumn::make('date_birthday')
                     ->label('Date of Birth')
                     ->date(),
+                TextColumn::make('id_empresa'),
+
+                TextColumn::make('id_profession'),
             ])
             ->filters([
                 //
