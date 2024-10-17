@@ -37,6 +37,8 @@ class UserResource extends Resource
                     ->unique(ignoreRecord: true), // Garante que o e-mail seja único, exceto no próprio registro ao editar
                 Forms\Components\TextInput::make('cpf')
                     ->required()
+                ->label('CPF:')
+                ->mask('999.999.999-99')
                     ->unique(ignoreRecord: true), // CPF também único
                 Forms\Components\TextInput::make('date_birthday')
                     ->label('Date of Birth')

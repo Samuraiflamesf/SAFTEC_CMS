@@ -16,8 +16,9 @@ class CreateTenantUser implements ShouldQueue
     {
         $this->tenant->run(function () {
             User::create([
-                'name' => $this->tenant->name,
+                'name' => $this->tenant->name_user,
                 'email' => $this->tenant->email,
+                'cpf' => $this->tenant->cpf,
                 'password' => $this->tenant->password,
             ]);
         });

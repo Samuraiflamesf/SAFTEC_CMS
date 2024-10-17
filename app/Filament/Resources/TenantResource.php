@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TenantResource\Pages;
-use App\Filament\Resources\TenantResource\RelationManagers;
-use App\Models\Tenant;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Tenant;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TenantResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TenantResource\RelationManagers;
 
 class TenantResource extends Resource
 {
@@ -26,18 +27,31 @@ class TenantResource extends Resource
                 Forms\Components\Section::make()->schema([
                     Forms\Components\TextInput::make('name')
                         ->required()
-                        ->label('Nome')
+                        ->label('Nome da unidade:')
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
-                        ->email()
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('password')
-                        ->label('Senha')
-                        ->password()
-                        ->required()
-                        ->revealable()
-                        ->maxLength(255),
+                    Grid::make(2)
+                        ->schema([
+                            Forms\Components\TextInput::make('name_user')
+                                ->required()
+                                ->label('Nome do Usuário:')
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('password')
+                                ->label('Senha:')
+                                ->password()
+                                ->required()
+                                ->revealable()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('cpf')
+                                ->required()
+                                ->unique(ignoreRecord: true)
+                                ->label('CPF:')
+                                ->mask('999.999.999-99'), // CPF também único
+                                Forms\Components\TextInput::make('email')
+                                ->label('E-mail:')
+                                ->email()
+                                ->required()
+                                ->maxLength(255),
+                        ]),
                     Forms\Components\TextInput::make('domain')
                         ->prefix('http://')
                         ->suffix('/client/login')

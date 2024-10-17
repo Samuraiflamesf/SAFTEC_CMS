@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
+            // Chave estrangeira para o usuário que criou o link
+            $table->foreignId('user_create_id')->constrained('users')->default(1);
             $table->timestamps();
         });
+
     }
 
     /**
