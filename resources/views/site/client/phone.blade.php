@@ -6,13 +6,13 @@
     @php
         function formatPhoneNumber($phone)
         {
-            if (strlen($phone) === 11) {
-            // Formato para números com 11 dígitos (celular): (XX) XXXXX-XXXX
-            return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $phone);
-        } elseif (strlen($phone) === 10) {
-            // Formato para números com 10 dígitos (fixo): (XX) XXXX-XXXX
-            return preg_replace('/(\d{2})(\d{4})(\d{4})/', '($1) $2-$3', $phone);
-        }
+            if (strlen($phone) === 14) {
+                // Formato para números com 11 dígitos (celular): (XX) XXXXX-XXXX
+                return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $phone);
+            } elseif (strlen($phone) === 13) {
+                // Formato para números com 10 dígitos (fixo): (XX) XXXX-XXXX
+                return preg_replace('/(\d{2})(\d\d{3})(\d{4})/', '($1) $2-$3', $phone);
+            }
         }
     @endphp
     <div class="m-8">

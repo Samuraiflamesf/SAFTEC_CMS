@@ -22,7 +22,18 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationLabel(): string
+    {
+        return 'Lista de Usuários';
+    }
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Administração';
+    }
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-user-group';
+    }
 
     public static function form(Form $form): Form
     {
@@ -78,6 +89,15 @@ class UserResource extends Resource
                             ->native(false)
                     ])
                     ->required(), // Campo obrigatório
+
+                Select::make('id_profession')
+                    ->relationship('profession', 'name') // Relacionamento com a tabela 'empresas'
+                    ->label('Cargo:')
+                    ->createOptionForm([ // Permite criar uma nova empresa diretamente
+                        TextInput::make('name')->required()->label('Profissão:')
+                            ->helperText('Ex: Farmacêutico, Tec. Administrativo, etc.'),
+                    ])
+                    ->required(), // Campo obrigatório
             ]);
     }
 
@@ -86,19 +106,31 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
+                    ->label('Nome')
                     ->searchable(),
                 TextColumn::make('cpf')
                     ->label('CPF')
                     ->sortable()
+                    ->searchable()
+                    ->formatStateUsing(
+                        fn(string $state): string =>
+                        substr($state, 0, 3) . '.' . substr($state, 3, 3) . '.' . substr($state, 6, 3) . '-' . substr($state, 9)
+                    ),
+                TextColumn::make('email')
+                    ->label(
+                        'E-mail'
+                    )
                     ->searchable(),
-                TextColumn::make('date_birthday')
-                    ->label('Date of Birth')
-                    ->date(),
-                TextColumn::make('id_empresa'),
+                TextColumn::make('empresa.name')
+                    ->label('Empresa')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('profession.name')
+                    ->label('Profissão')
+                    ->sortable()
+                    ->searchable(),
 
-                TextColumn::make('id_profession'),
+
             ])
             ->filters([
                 //

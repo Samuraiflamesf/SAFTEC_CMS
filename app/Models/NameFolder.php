@@ -12,10 +12,9 @@ class NameFolder extends Model
     protected $fillable = [
         'id',
         'name',
-        'user_create_id'
     ];
-    public function creator()
+    public function documents()
     {
-        return $this->belongsTo(User::class, 'user_create_id');
+        return $this->hasMany(Document::class, 'folder_id'); // Relacionamento inverso
     }
 }

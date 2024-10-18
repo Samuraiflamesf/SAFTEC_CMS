@@ -18,7 +18,6 @@ class NameFolderFactory extends Factory
     {
         return [
             'name' => fake()->sentence(15),
-            'user_create_id' => 1, // Pode ser definido depois
         ];
     }
 }

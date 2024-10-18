@@ -17,12 +17,17 @@ return new class extends Migration
             // Para armazenar o documento (ou usar path)
             $table->string('document');
             // Relacionado à pasta
-            $table->foreignId('folder_id')->constrained('name_folders');
+            $table->foreignId('folder_id')->constrained('name_folders')
+                ->onDelete('cascade');
             // Chave estrangeira para o usuário que criou o documento
-            $table->foreignId('user_create_id')->constrained('users')->default(1);
+            $table->foreignId('user_create_id')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('set null')
+                ->default(1);
+            $table->string('user_name'); // Armazena o nome do usuário
             $table->timestamps();
         });
-
     }
 
     /**

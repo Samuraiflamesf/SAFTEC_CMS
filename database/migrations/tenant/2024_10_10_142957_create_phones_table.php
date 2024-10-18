@@ -16,10 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             // Chave estrangeira para o usuário que criou o telefone
-            $table->foreignId('user_create_id')->constrained('users')->default(1);
+            $table->foreignId('user_create_id')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('set null')
+                ->default(1);
+            $table->string('user_name'); // Armazena o nome do usuário
             $table->timestamps();
         });
-
     }
 
     /**

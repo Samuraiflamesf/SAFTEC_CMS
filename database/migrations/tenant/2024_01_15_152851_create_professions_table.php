@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('professions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('perfil')->nullable(); // Pode ser um campo descritivo
             $table->timestamps();
         });
     }

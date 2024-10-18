@@ -11,13 +11,25 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Schema;
 
 class PhoneResource extends Resource
 {
     protected static ?string $model = Phone::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationLabel(): string
+    {
+        return 'Lista de Ramais';
+    }
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Intranet';
+    }
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-phone';
+    }
 
     public static function form(Form $form): Form
     {
@@ -29,14 +41,22 @@ class PhoneResource extends Resource
                     ->minLength(2)
                     ->maxLength(20),
                 Forms\Components\TextInput::make('phone')
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-                    ->placeholder('(33) 3545-0296')
-                    ->suffixIcon('heroicon-m-phone')
                     ->label('Telefone')
-                    ->minLength(10)
-                    ->maxLength(12)
                     ->required()
-                    ->tel(),
+                    ->tel()
+                    ->telRegex('/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/') // Aceita números fixos ou móveis com ou sem traços
+                    ->placeholder('(33) 3545-0296') // Exemplo para mostrar como deve ser formatado
+                    ->mask(fn($state) => strlen($state) === 13 ? '(99)9999-9999' : '(99)99999-9999') // Ajusta a máscara com base no tamanho do número
+                    ->minLength(13) // Para fixo: (XX) XXXX-XXXX
+                    ->maxLength(14) // Para móvel: (XX) XXXXX-XXXX
+                    ->suffixIcon('heroicon-m-phone'),
+
+                Forms\Components\Select::make('user_create_id')
+                    ->relationship('user', 'name') // Relacionamento correto com a tabela 'users'
+                    ->label('Usuário que Criou:')
+                    ->columnSpanFull()
+                    ->visible(fn($record) => $record !== null) // Só exibe durante a edição
+                    ->disabled(), // Desabilita o campo para não ser alterado
             ]);
     }
 
