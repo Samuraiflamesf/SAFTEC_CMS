@@ -22,6 +22,8 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $modelLabel = 'Usuário';
+
     public static function getNavigationLabel(): string
     {
         return 'Lista de Usuários';

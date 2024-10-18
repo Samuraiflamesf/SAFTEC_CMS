@@ -18,9 +18,11 @@ use Schema;
 class PhoneResource extends Resource
 {
     protected static ?string $model = Phone::class;
+
+    protected static ?string $modelLabel = 'Telefone';
     public static function getNavigationLabel(): string
     {
-        return 'Lista de Ramais';
+        return 'Lista Telefonica';
     }
     public static function getNavigationGroup(): ?string
     {
@@ -53,7 +55,7 @@ class PhoneResource extends Resource
 
                 Forms\Components\Select::make('user_create_id')
                     ->relationship('user', 'name') // Relacionamento correto com a tabela 'users'
-                    ->label('Usuário que Criou:')
+                    ->label('Criado por:')
                     ->columnSpanFull()
                     ->visible(fn($record) => $record !== null) // Só exibe durante a edição
                     ->disabled(), // Desabilita o campo para não ser alterado

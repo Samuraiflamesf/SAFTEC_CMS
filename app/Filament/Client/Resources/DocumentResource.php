@@ -26,6 +26,7 @@ use App\Filament\Client\Resources\DocumentResource\Pages\CreateDocument;
 class DocumentResource extends Resource
 {
     protected static ?string $model = Document::class;
+    protected static ?string $modelLabel = 'Documento';
 
     public static function getNavigationIcon(): string
     {
@@ -47,9 +48,8 @@ class DocumentResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->label('Nome do Arquivo:'),
-
-
-                Select::make('folder_id')
+                    Select::make('folder_id')
+                    ->required()
                     ->relationship('folder', 'name') // Relacionamento correto com name_folders
                     ->label('Nome da Seção:')
                     ->createOptionForm([
@@ -59,8 +59,8 @@ class DocumentResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->label('Upload do Documento:')
-                    ->directory('Doc')
-                    ->disk('public'),
+                    ->directory('tenants/' . tenant('id') . '/Doc')
+                    ->directory('document'),
 
                 Forms\Components\Select::make('user_create_id')
                     ->relationship('user', 'name') // Relacionamento com a tabela 'users'

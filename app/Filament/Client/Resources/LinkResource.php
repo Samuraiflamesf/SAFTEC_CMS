@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LinkResource extends Resource
+
 {
+    protected static ?string $modelLabel = 'Atalho';
     public static function getNavigationIcon(): string
     {
         return 'heroicon-o-share';
