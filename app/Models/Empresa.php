@@ -9,14 +9,10 @@ class Empresa extends Model
 {
     /** @use HasFactory<\Database\Factories\EmpresaFactory> */
     use HasFactory;
+    protected $fillable = ['name', 'sub_contrato', 'type_vinc'];
+
     public function users()
     {
         return $this->hasMany(User::class, 'id_empresa');
     }
-    protected $fillable = [
-        'id',
-        'name',
-        'sub_contrato',
-        'type-vinc'
-    ];
 }

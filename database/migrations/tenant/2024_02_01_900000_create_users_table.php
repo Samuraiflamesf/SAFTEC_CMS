@@ -16,14 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('cpf')->unique();
-            $table->timestamp('date_birthday')->nullable();
+            $table->date('date_birthday');
             $table->string('password');
             $table->string('remember_token')->nullable();
             $table->timestamps();
 
             // Chaves estrangeiras
-            $table->foreignId('id_empresa')->nullable()->constrained('empresa')->onDelete('set null'); // Relacionado à empresa
-            $table->foreignId('id_profession')->nullable()->constrained('profession')->onDelete('set null'); // Relacionado à profissão
+            $table->foreignId('id_empresa')->nullable()->constrained('empresas')->onDelete('set null'); // Relacionado à empresa
+            $table->foreignId('id_profession')->nullable()->constrained('professions')->onDelete('set null'); // Relacionado à profissão
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
