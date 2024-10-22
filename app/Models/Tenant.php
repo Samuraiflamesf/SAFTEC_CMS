@@ -16,10 +16,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return $this->hasMany(Domain::class);
     }
-    public static function getCustomColumns(): array {
+    public static function getCustomColumns(): array
+    {
         return [
             'id',
             'name',
+            'name_user',
+            'cpf',
             'email',
             'password',
         ];
@@ -28,8 +31,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'password',
         'remember_token',
     ];
-    public function setPasswordAttribute($value){
+    public function setPasswordAttribute($value)
+    {
         return $this->attributes['password'] = Hash::make($value);
     }
-
 }

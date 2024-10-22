@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PainelController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\site\HomeController;
-use App\Http\Controllers\site\DocumentController;
-use App\Http\Controllers\site\PhoneController;
 
-Route::namespace('Site')->group(function () {
-    Route::get('/', [HomeController::class, '__invoke'])->name(name: 'site.home');
-    Route::get('ramais', [PhoneController::class, '__invoke'])->name(name: 'site.phone');
-    Route::get('documentos', [DocumentController::class, '__invoke'])->name(name: 'site.document');
-});
+
+foreach (config('tenancy.central_domains') as $domain) {
+    Route::domain($domain)->group(function () {
+        Route::get('/', [AdminController::class, '__invoke'])->name(name: 'admin.home');
+        Route::get('/painel', [PainelController::class, '__invoke'])->name(name: 'admin.painel');
+        Route::get('/about', [AboutController::class, '__invoke'])->name(name: 'admin.about');
+    });
+}

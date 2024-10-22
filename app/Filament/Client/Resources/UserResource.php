@@ -5,36 +5,101 @@ namespace App\Filament\Client\Resources;
 use App\Filament\Client\Resources\UserResource\Pages;
 use App\Filament\Client\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Models\Empresa;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Usuário';
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Lista de Usuários';
+    }
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Administração';
+    }
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-user-group';
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
+                    ->label('Nome Completo:')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
+                    ->label(
+                        'E-mail:'
+                    )
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
+                    ->unique(ignoreRecord: true),
+                TextInput::make('cpf')
+                    ->required()
+                    ->label('CPF:')
+                    ->mask('999.999.999-99')
+                    ->unique(ignoreRecord: true),
+
+                DatePicker::make('date_birthday')
+                    ->displayFormat('d m Y')  // Exibe para o usuário no formato d/m/Y
+                    ->label('Data de Nascimento:')
+                    ->required(),
+
+
+                TextInput::make('password')
                     ->password()
-                    ->required()
-                    ->maxLength(255),
+                    ->revealable()
+                    ->required(fn($record) => $record === null) // O campo de senha é obrigatório apenas na criação
+                    ->minLength(8)
+                    ->dehydrateStateUsing(fn($state) => filled($state) ? Hash::make($state) : null) // Criptografa a senha
+                    ->label('Password')
+                    ->visible(fn($record) => $record === null), // Só exibe o campo de senha ao criar
+
+                Select::make('id_empresa')
+                    ->relationship('empresa', 'name') // Relacionamento com a tabela 'empresas'
+                    ->label('Empresa:')
+                    ->createOptionForm([ // Permite criar uma nova empresa diretamente
+                        TextInput::make('name')->required()->label('Nome da Empresa'),
+                        TextInput::make('sub_contrato')->required()->label('Sub Contrato')
+                            ->helperText('Ex: PPE (Projeto Primeiro Emprego) ou SAFTEC'),
+                        Select::make('type_vinc')
+                            ->options([
+                                'terceirizado' => 'Terceirizado',
+                                'estatutario' => 'Estatutário',
+                                'estagiario' => 'Estagiário',
+                                'cargo' => 'Cargo',
+                            ])
+                            ->label('Tipo de Vinculação')
+                            ->native(false)
+                    ])
+                    ->required(), // Campo obrigatório
+
+                Select::make('id_profession')
+                    ->relationship('profession', 'name') // Relacionamento com a tabela 'empresas'
+                    ->label('Cargo:')
+                    ->createOptionForm([ // Permite criar uma nova empresa diretamente
+                        TextInput::make('name')->required()->label('Profissão:')
+                            ->helperText('Ex: Farmacêutico, Tec. Administrativo, etc.'),
+                    ])
+                    ->required(), // Campo obrigatório
             ]);
     }
 
@@ -42,28 +107,38 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('cpf')
+                    ->label('CPF')
+                    ->sortable()
+                    ->searchable()
+                    ->formatStateUsing(
+                        fn(string $state): string =>
+                        substr($state, 0, 3) . '.' . substr($state, 3, 3) . '.' . substr($state, 6, 3) . '-' . substr($state, 9)
+                    ),
+                TextColumn::make('email')
+                    ->label(
+                        'E-mail'
+                    )
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                TextColumn::make('empresa.name')
+                    ->label('Empresa')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->searchable(),
+                TextColumn::make('profession.name')
+                    ->label('Profissão')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
+
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -72,10 +147,19 @@ class UserResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageUsers::route('/'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }
