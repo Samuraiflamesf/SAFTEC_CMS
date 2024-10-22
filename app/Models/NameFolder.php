@@ -10,7 +10,11 @@ class NameFolder extends Model
     /** @use HasFactory<\Database\Factories\NameFolderFactory> */
     use HasFactory;
     protected $fillable = [
-        "name",
+        'id',
+        'name',
     ];
-
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'folder_id'); // Relacionamento inverso
+    }
 }

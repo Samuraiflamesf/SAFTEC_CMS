@@ -4,16 +4,16 @@ namespace App\Filament\Client\Resources\LinkResource\Pages;
 
 use App\Filament\Client\Resources\LinkResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\EditRecord;
 
-class ManageLinks extends ManageRecords
+class EditLink extends EditRecord
 {
     protected static string $resource = LinkResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

@@ -18,7 +18,8 @@ class PhoneFactory extends Factory
     {
         return [
             'name' => fake()->sentence(5),
-            'phone' => fake()->numerify(str_repeat('#', fake()->numberBetween(10, 11))),
+            'phone' => fake()->numerify(str_repeat('#', fake()->numberBetween(13, 14))),
+            'user_create_id' => 1, // Pode ser definido depois
         ];
     }
 }

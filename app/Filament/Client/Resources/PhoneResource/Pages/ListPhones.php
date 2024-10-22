@@ -4,9 +4,9 @@ namespace App\Filament\Client\Resources\PhoneResource\Pages;
 
 use App\Filament\Client\Resources\PhoneResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManagePhones extends ManageRecords
+class ListPhones extends ListRecords
 {
     protected static string $resource = PhoneResource::class;
 

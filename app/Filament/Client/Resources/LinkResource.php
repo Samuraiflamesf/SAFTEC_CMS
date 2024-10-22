@@ -14,10 +14,24 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LinkResource extends Resource
+
 {
+    protected static ?string $modelLabel = 'Atalho';
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-share';
+    }
+    public static function getNavigationLabel(): string
+    {
+        return 'Lista de Links';
+    }
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Intranet';
+    }
     protected static ?string $model = Link::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-paper-clip';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -53,7 +67,6 @@ class LinkResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -62,10 +75,19 @@ class LinkResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageLinks::route('/'),
+            'index' => Pages\ListLinks::route('/'),
+            'create' => Pages\CreateLink::route('/create'),
+            'edit' => Pages\EditLink::route('/{record}/edit'),
         ];
     }
 }

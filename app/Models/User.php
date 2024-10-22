@@ -17,11 +17,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'cpf',
         'date_birthday',
         'password',
+        'id_empresa',
+        'id_profession'
     ];
 
     /**
@@ -45,5 +48,42 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relationships
+
+    public function createdPhones()
+    {
+        return $this->hasMany(Phone::class, 'user_create_id');
+    }
+
+    public function createdLinks()
+    {
+        return $this->hasMany(Link::class, 'user_create_id');
+    }
+
+    public function createdNameFolders()
+    {
+        return $this->hasMany(NameFolder::class, 'user_create_id');
+    }
+
+    public function createdDocuments()
+    {
+        return $this->hasMany(Document::class, 'user_create_id');
+    }
+
+    public function createdFerias()
+    {
+        return $this->hasMany(Feria::class, 'user_id');
+    }
+
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class, 'id_profession');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa');
     }
 }
