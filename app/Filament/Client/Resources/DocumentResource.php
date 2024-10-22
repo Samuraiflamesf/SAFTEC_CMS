@@ -48,7 +48,7 @@ class DocumentResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->label('Nome do Arquivo:'),
-                    Select::make('folder_id')
+                Select::make('folder_id')
                     ->required()
                     ->relationship('folder', 'name') // Relacionamento correto com name_folders
                     ->label('Nome da Seção:')
@@ -56,11 +56,13 @@ class DocumentResource extends Resource
                         TextInput::make('name')->required()->label('Nome da Seção:'),
                     ]),
                 FileUpload::make('document')
+                    ->label('Upload do Documento:')
                     ->required()
                     ->columnSpanFull()
-                    ->label('Upload do Documento:')
-                    ->directory('tenants/' . tenant('id') . '/Doc')
-                    ->directory('document'),
+                    ->directory('documents') // Define a pasta no storage
+                    ->acceptedFileTypes(['application/pdf']) // Tipos de arquivos aceitos
+                    ->maxSize(10240)
+                    ->disk('app'),
 
                 Forms\Components\Select::make('user_create_id')
                     ->relationship('user', 'name') // Relacionamento com a tabela 'users'

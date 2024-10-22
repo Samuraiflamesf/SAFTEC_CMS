@@ -46,7 +46,7 @@ class TenantResource extends Resource
                                 ->unique(ignoreRecord: true)
                                 ->label('CPF:')
                                 ->mask('999.999.999-99'), // CPF também único
-                                Forms\Components\TextInput::make('email')
+                            Forms\Components\TextInput::make('email')
                                 ->label('E-mail:')
                                 ->email()
                                 ->required()
@@ -55,7 +55,7 @@ class TenantResource extends Resource
                     Forms\Components\TextInput::make('domain')
                         ->prefix('http://')
                         ->suffix('/client/login')
-                        ->helperText('Ex: http://cedeba.localhost:8000/client/login'),
+                        ->helperText('Ex: cedeba.localhost'),
                 ])
             ]);
     }

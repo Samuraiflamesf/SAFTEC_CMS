@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('cpf')->unique()->default('00000000000');
-            $table->timestamp('date_birthday')->nullable();
+            $table->timestamp('date_birthday')->nullable()->default(null);
             $table->string('password');
             $table->string('remember_token')->nullable();
             $table->timestamps();

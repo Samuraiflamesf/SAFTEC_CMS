@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('empresas', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('sub_contrato')->nullable();
-            $table->string('type_vinc')->nullable();
-            $table->timestamps();
+        Schema::table('ouvidorias', function (Blueprint $table) {
+            $table->boolean('dado_sigiloso')->default(false); // Adiciona a coluna 'dado_sigiloso'
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('empresas');
+        Schema::table('ouvidorias', function (Blueprint $table) {
+            $table->dropColumn('dado_sigiloso'); // Remove a coluna se a migração for revertida
+        });
     }
 };

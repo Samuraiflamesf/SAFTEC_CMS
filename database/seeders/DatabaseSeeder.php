@@ -7,6 +7,7 @@ use App\Models\Link;
 use App\Models\NameFolder;
 use App\Models\Painel;
 use App\Models\User;
+use App\Models\Ouvidoria;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Phone;
 use Illuminate\Database\Seeder;
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
         Phone::factory(10)->create();
         Link::factory(6)->create();
         NameFolder::factory(6)->create();
+        Ouvidoria::factory()->count(10)->create();
+
 
         // Document::factory(6)->create();
         // Painel::factory(6)->create();
