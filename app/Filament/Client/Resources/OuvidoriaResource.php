@@ -10,6 +10,7 @@ use App\Models\Ouvidoria;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
@@ -19,8 +20,6 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Client\Resources\OuvidoriaResource\Pages;
-
-
 
 class OuvidoriaResource extends Resource
 {
@@ -166,10 +165,15 @@ class OuvidoriaResource extends Resource
                                 ->label('Anexo do Espelho:')
                                 ->acceptedFileTypes(['application/pdf']) // Tipos de arquivos aceitos
                                 ->maxSize(5128)
-                                ->downloadable()
-                                ->disk('app'),
+                                ->disk('public')
+                                ->directory('file_espelhos')
+                                ->moveFiles()
+                                ->downloadable(),
                             FileUpload::make('file_documents')
                                 ->label('Anexos:')
+                                ->disk('public')
+                                ->directory('file_documents')
+                                ->moveFiles()
                                 ->multiple()
                                 ->downloadable(),
 

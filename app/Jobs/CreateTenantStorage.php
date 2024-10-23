@@ -11,10 +11,6 @@ class CreateTenantStorage implements ShouldQueue
     use Queueable;
     protected $tenant;
 
-
-    /**
-     * Create a new job instance.
-     */
     public function __construct(Tenant $tenant)
     {
         $this->tenant = $tenant;

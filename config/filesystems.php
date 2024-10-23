@@ -7,22 +7,11 @@ return [
 
     'disks' => [
 
-        // 'local' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/private'),
-        //     'serve' => true,
-        //     'throw' => false,
-        // ],
-
-        // 'public' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/public'),
-        //     'url' => env('APP_URL') . '/storage',
-        //     'visibility' => 'public',
-        // ],
         'local' => [
             'driver' => 'local',
-            'root' => storage_path( 'app'),
+            'root' => storage_path('app/private'),
+            'serve' => true,
+            'throw' => false,
         ],
 
         'public' => [
@@ -31,6 +20,17 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+        // 'local' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path( 'app'),
+        // ],
+
+        // 'public' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public'),
+        //     'url' => env('APP_URL') . '/storage',
+        //     'visibility' => 'public',
+        // ],
 
         's3' => [
             'driver' => 's3',
@@ -60,5 +60,11 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
+    
+    'tenant' => [
+        'driver' => 'local',
+        'root' => storage_path('app/tenants'),
+        'url' => env('APP_URL') . '/storage/tenants',
+        'visibility' => 'public',
+    ],
 ];

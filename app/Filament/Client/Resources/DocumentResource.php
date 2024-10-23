@@ -59,10 +59,13 @@ class DocumentResource extends Resource
                     ->label('Upload do Documento:')
                     ->required()
                     ->columnSpanFull()
-                    ->directory('documents') // Define a pasta no storage
                     ->acceptedFileTypes(['application/pdf']) // Tipos de arquivos aceitos
                     ->maxSize(10240)
-                    ->disk('app'),
+                    ->disk('public')
+                    ->directory('documents')
+                    ->moveFiles()
+                    ->downloadable(),
+
 
                 Forms\Components\Select::make('user_create_id')
                     ->relationship('user', 'name') // Relacionamento com a tabela 'users'

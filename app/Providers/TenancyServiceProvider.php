@@ -13,7 +13,11 @@ use Stancl\JobPipeline\JobPipeline;
 use Stancl\Tenancy\Events;
 use Stancl\Tenancy\Jobs;
 use Stancl\Tenancy\Listeners;
+use Livewire\Livewire;
+use Livewire\Features\SupportFileUploads\FilePreviewController;
 use Stancl\Tenancy\Middleware;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+
 
 class TenancyServiceProvider extends ServiceProvider
 {
@@ -107,6 +111,7 @@ class TenancyServiceProvider extends ServiceProvider
         $this->mapRoutes();
 
         $this->makeTenancyMiddlewareHighestPriority();
+        $this->livewireBoot();
     }
 
     protected function bootEvents()
@@ -148,5 +153,18 @@ class TenancyServiceProvider extends ServiceProvider
         foreach (array_reverse($tenancyMiddleware) as $middleware) {
             $this->app[\Illuminate\Contracts\Http\Kernel::class]->prependToMiddlewarePriority($middleware);
         }
+    }
+    private function livewireBoot()
+    {
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/livewire/update', $handle)
+                ->middleware(
+                    'web',
+                    'universal',
+                    InitializeTenancyByDomain::class, // or whatever tenancy middleware you use
+                );
+        });
+        // specify the right identification middleware
+        FilePreviewController::$middleware = ['web', 'universal', InitializeTenancyByDomain::class];
     }
 }

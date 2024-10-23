@@ -39,8 +39,8 @@ class Document extends Model
     {
         return $this->belongsTo(NameFolder::class, 'folder_id'); // Substitua 'NameFolder::class' pelo seu modelo de pastas
     }
-    public function getFileUrlAttribute()
-    {
-        return \Storage::url($this->document);
-    }
+    // public function getFileUrlAttribute()
+    // {
+    //     return \Storage::url($this->document);
+    // }
 }

@@ -20,3 +20,5 @@ Route::middleware([
     Route::get('ramais', [PhoneController::class, '__invoke'])->name(name: 'client.phone');
     Route::get('/', [HomeController::class, '__invoke'])->name(name: 'client.home');
 });
+
+Route::get('/foo', function () {})->middleware(['universal', InitializeTenancyByDomain::class]);
