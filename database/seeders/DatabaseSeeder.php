@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
         if (!User::where('email', 'Admin@admin.com')->exists()) {
             User::factory()->admin()->create();
         }
-        Phone::factory(10)->create();
-        Link::factory(6)->create();
-        NameFolder::factory(6)->create();
-        Ouvidoria::factory()->count(10)->create();
 
+        // User::factory(10)->create();
+        // Phone::factory(10)->create();
+        // Link::factory(6)->create();
+        // NameFolder::factory(6)->create();
+        // Ouvidoria::factory()->count(10)->create();
 
         // Document::factory(6)->create();
         // Painel::factory(6)->create();

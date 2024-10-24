@@ -31,11 +31,7 @@ return new class extends Migration
                 ->onDelete('set null')
                 ->default(1);
             $table->string('author_id');
-            $table->foreignId('user_create_id')
-                ->nullable()
-                ->constrained('users')
-                ->onDelete('set null')
-                ->default(1);
+            $table->boolean('dado_sigiloso')->default(false); // Adiciona a coluna 'dado_sigiloso'
             $table->timestamps();
         });
     }
