@@ -70,7 +70,7 @@ Este é um sistema de gestão de unidades de saúde desenvolvido em Laravel, com
 8. Compile os assets do frontend:
 
     ```bash
-    npm run dev
+    npm run build
     ```
 
 9. Inicie o servidor local:
